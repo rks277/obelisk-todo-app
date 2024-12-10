@@ -4,7 +4,7 @@ import json
 from uuid import uuid4
 
 app = Flask(__name__, static_folder='public', static_url_path='/public')
-app.secret_key = 'a_very_secret_key_here'  # Replace with a secure key
+app.secret_key = 'a_very_secret_key_here'
 
 TODOS_FILE = 'todos.json'
 

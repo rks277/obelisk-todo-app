@@ -8,7 +8,6 @@ const addTodoBtn = document.getElementById('addTodoBtn');
 const todoList = document.getElementById('todoList');
 const signOutBtn = document.getElementById('signOutBtn');
 
-// Check if user name is already set
 async function checkName() {
   const res = await fetch('/whoami');
   const data = await res.json();
@@ -31,7 +30,6 @@ function showTodos(username) {
   loadTodos();
 }
 
-// Set Name
 setNameBtn.addEventListener('click', async () => {
   const username = nameInput.value.trim();
   if (!username) {
@@ -52,7 +50,6 @@ setNameBtn.addEventListener('click', async () => {
   }
 });
 
-// Load Todos
 async function loadTodos() {
   const res = await fetch('/todos');
   const data = await res.json();
@@ -101,7 +98,6 @@ function renderTodos(todos) {
   });
 }
 
-// Add Todo
 addTodoBtn.addEventListener('click', async () => {
   const text = newTodoInput.value.trim();
   if (!text) return;
@@ -120,7 +116,6 @@ addTodoBtn.addEventListener('click', async () => {
   }
 });
 
-// Sign Out
 signOutBtn.addEventListener('click', async () => {
   const res = await fetch('/signout', {method: 'POST'});
   if (res.ok) {
@@ -128,5 +123,4 @@ signOutBtn.addEventListener('click', async () => {
   }
 });
 
-// Initial check
 checkName();
