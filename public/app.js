@@ -1,83 +1,54 @@
-const signUpBtn = document.getElementById('signUpBtn');
-const signInBtn = document.getElementById('signInBtn');
-const logoutBtn = document.getElementById('logoutBtn');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
-const authSection = document.getElementById('auth-section');
+const nameInput = document.getElementById('nameInput');
+const setNameBtn = document.getElementById('setNameBtn');
+const nameSection = document.getElementById('name-section');
 const todoSection = document.getElementById('todo-section');
-const addTodoBtn = document.getElementById('addTodoBtn');
+const todoHeader = document.getElementById('todoHeader');
 const newTodoInput = document.getElementById('newTodoInput');
+const addTodoBtn = document.getElementById('addTodoBtn');
 const todoList = document.getElementById('todoList');
-const usernameDisplay = document.getElementById('usernameDisplay');
+const signOutBtn = document.getElementById('signOutBtn');
 
-// Helper function to check auth state
-async function checkAuth() {
-  const res = await fetch('/auth/me');
-  if (res.ok) {
-    const data = await res.json();
+// Check if user name is already set
+async function checkName() {
+  const res = await fetch('/whoami');
+  const data = await res.json();
+  if (data.username) {
     showTodos(data.username);
   } else {
-    showAuth();
+    showNameEntry();
   }
 }
 
-function showAuth() {
-  authSection.style.display = 'block';
+function showNameEntry() {
+  nameSection.style.display = 'block';
   todoSection.style.display = 'none';
-  logoutBtn.style.display = 'none';
-  todoList.innerHTML = '';
-  usernameDisplay.textContent = '';
 }
 
 function showTodos(username) {
-  authSection.style.display = 'none';
+  nameSection.style.display = 'none';
   todoSection.style.display = 'block';
-  logoutBtn.style.display = 'block';
-  usernameDisplay.textContent = `${username}'s Todo List`;
+  todoHeader.textContent = `Welcome, ${username}! Add a todo below.`;
   loadTodos();
 }
 
-// Sign Up
-signUpBtn.addEventListener('click', async () => {
-  const username = usernameInput.value.trim();
-  const password = passwordInput.value;
+// Set Name
+setNameBtn.addEventListener('click', async () => {
+  const username = nameInput.value.trim();
+  if (!username) {
+    alert('Please enter a name.');
+    return;
+  }
 
-  const res = await fetch('/auth/signup', {
+  const res = await fetch('/setname', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username, password})
+    body: JSON.stringify({username})
   });
   const data = await res.json();
   if (res.ok) {
-    alert(data.message);
+    showTodos(username);
   } else {
     alert(data.error);
-  }
-});
-
-// Sign In
-signInBtn.addEventListener('click', async () => {
-  const username = usernameInput.value.trim();
-  const password = passwordInput.value;
-
-  const res = await fetch('/auth/signin', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username, password})
-  });
-  const data = await res.json();
-  if (res.ok) {
-    checkAuth();
-  } else {
-    alert(data.error);
-  }
-});
-
-// Logout
-logoutBtn.addEventListener('click', async () => {
-  const res = await fetch('/auth/logout', {method: 'POST'});
-  if (res.ok) {
-    checkAuth();
   }
 });
 
@@ -112,18 +83,25 @@ function renderTodos(todos) {
       }
     });
 
-    const span = document.createElement('span');
-    span.textContent = todo.text;
-    span.style.textDecoration = todo.completed ? 'line-through' : 'none';
-    span.style.marginLeft = '8px';
+    const spanText = document.createElement('span');
+    spanText.textContent = todo.text;
+    spanText.style.textDecoration = todo.completed ? 'line-through' : 'none';
+    spanText.style.marginLeft = '8px';
+
+    const spanUser = document.createElement('span');
+    spanUser.textContent = ` (added by ${todo.user})`;
+    spanUser.style.fontSize = '0.9em';
+    spanUser.style.color = '#555';
+    spanUser.style.marginLeft = '8px';
 
     li.appendChild(checkbox);
-    li.appendChild(span);
+    li.appendChild(spanText);
+    li.appendChild(spanUser);
     todoList.appendChild(li);
   });
 }
 
-// Add new todo
+// Add Todo
 addTodoBtn.addEventListener('click', async () => {
   const text = newTodoInput.value.trim();
   if (!text) return;
@@ -142,5 +120,13 @@ addTodoBtn.addEventListener('click', async () => {
   }
 });
 
-// Initial auth check
-checkAuth();
+// Sign Out
+signOutBtn.addEventListener('click', async () => {
+  const res = await fetch('/signout', {method: 'POST'});
+  if (res.ok) {
+    window.location.reload();
+  }
+});
+
+// Initial check
+checkName();

@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Local JSON Todo App</title>
+    <title>Public Todo List</title>
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <h1>Todo List</h1>
+    <h1>Public Todo List</h1>
 
-    <div id="auth-section">
-        <h2>Sign In / Sign Up</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button id="signUpBtn">Sign Up</button>
-        <button id="signInBtn">Sign In</button>
-        <button id="logoutBtn" style="display:none;">Logout</button>
+    <div id="name-section">
+        <h2>Enter Your Name</h2>
+        <input type="text" id="nameInput" placeholder="Your name...">
+        <button id="setNameBtn">Set Name</button>
     </div>
 
     <div id="todo-section" style="display:none;">
-        <h2 id="usernameDisplay"></h2>
+        <h2 id="todoHeader"></h2>
         <input type="text" id="newTodoInput" placeholder="New Todo...">
         <button id="addTodoBtn">Add Todo</button>
+        <button id="signOutBtn">Sign Out</button>
         <ul id="todoList"></ul>
     </div>
 

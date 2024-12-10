@@ -1,0 +1,28 @@
+{
+  "todos": [
+    {
+      "id": "28b7a0c8-ec2f-4750-bb0c-5102ed59eea1",
+      "text": "todo",
+      "completed": false,
+      "user": "roshan"
+    },
+    {
+      "id": "b5d8139e-734c-42ff-82ac-ecedf25b50c2",
+      "text": "another todo",
+      "completed": false,
+      "user": "Mateo"
+    },
+    {
+      "id": "7356aead-5ba7-41d8-8705-2b3285500b75",
+      "text": "complete stupid final project",
+      "completed": false,
+      "user": "roshan"
+    },
+    {
+      "id": "afac371a-86fa-4730-950a-94fd0e833638",
+      "text": "finish this shit",
+      "completed": false,
+      "user": "Matt"
+    }
+  ]
+}
