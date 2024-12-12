@@ -4,9 +4,16 @@ import json
 from uuid import uuid4
 
 app = Flask(__name__, static_folder='public', static_url_path='/public')
-app.secret_key = 'a_very_secret_key_here'
+app.secret_key = 'a_very_secret_key_here'  # Replace with a secure key
 
+USERS_FILE = 'users.json'
 TODOS_FILE = 'todos.json'
+
+def load_users():
+    if not os.path.exists(USERS_FILE):
+        return {"users": {}}
+    with open(USERS_FILE, 'r') as f:
+        return json.load(f)
 
 def load_todos():
     if not os.path.exists(TODOS_FILE):
@@ -22,14 +29,25 @@ def save_todos(data):
 def index():
     return send_from_directory('public', 'index.html')
 
-@app.route('/setname', methods=['POST'])
-def setname():
+@app.route('/auth/login', methods=['POST'])
+def login():
     data = request.json
     username = data.get('username', '').strip()
-    if not username:
-        return jsonify({"error": "Name cannot be empty"}), 400
-    session['username'] = username
-    return jsonify({"message": "Name set"}), 200
+    password = data.get('password', '')
+
+    users_data = load_users()
+    user_info = users_data["users"].get(username)
+
+    if user_info and user_info["password"] == password:
+        session['username'] = username
+        return jsonify({"message": "Logged in"}), 200
+    else:
+        return jsonify({"error": "Invalid username or password"}), 401
+
+@app.route('/auth/logout', methods=['POST'])
+def logout():
+    session.pop('username', None)
+    return jsonify({"message": "Logged out"}), 200
 
 @app.route('/whoami', methods=['GET'])
 def whoami():
@@ -37,11 +55,6 @@ def whoami():
         return jsonify({"username": session['username']}), 200
     else:
         return jsonify({"username": None}), 200
-
-@app.route('/signout', methods=['POST'])
-def signout():
-    session.pop('username', None)
-    return jsonify({"message": "Signed out"}), 200
 
 @app.route('/todos', methods=['GET'])
 def get_todos():
@@ -51,7 +64,7 @@ def get_todos():
 @app.route('/todos', methods=['POST'])
 def add_todo():
     if 'username' not in session:
-        return jsonify({"error": "You must set your name first"}), 401
+        return jsonify({"error": "You must be logged in to add todos"}), 401
 
     data = request.json
     text = data.get('text', '').strip()

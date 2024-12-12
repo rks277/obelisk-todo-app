@@ -1,24 +1,138 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
+    font-family: "Papyrus", fantasy, "Comic Sans MS", cursive;
+    color: #5a3e2b;
+    background: transparent;
 }
+
+#hieroglyphs-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* behind everything */
+    overflow: hidden;
+    white-space: pre-wrap;
+    opacity: 0.2; /* Increased from 0.1 to make hieroglyphs more visible */
+    font-size: 3em;
+    line-height: 1.2em;
+    pointer-events: none;
+    padding: 20px;
+    color: #4a2e1a; /* Darker shade for hieroglyphs for better visibility */
+}
+
+h1, h2 {
+    font-family: "Papyrus", fantasy, "Comic Sans MS", cursive;
+    text-align: center;
+    text-shadow: 1px 1px 0px #fff;
+    color: #4f321a;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
 h1 {
-    color: #333;
+    font-size: 2em;
+    border-bottom: 3px solid #4f321a;
+    display: inline-block;
+    padding: 5px 10px;
 }
-input {
-    margin: 5px 0;
-    display: block;
-    width: 200px;
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
 }
+
+#user-section, #todo-section {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    /* Slightly lighter background so hieroglyphs show through more distinctly */
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #5a3e2b;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(90, 62, 43, 0.5);
+}
+
+input[type="text"], input[type="password"] {
+    font-family: inherit;
+    padding: 5px;
+    border: 1px solid #5a3e2b;
+    border-radius: 3px;
+    background: #f9f2d5;
+    color: #5a3e2b;
+}
+
 button {
-    margin: 5px 0;
-}
-#todoList li {
-    list-style: none;
-    margin: 5px 0;
-}
-.todo-checkbox {
-    margin-right: 8px;
-    vertical-align: middle;
+    font-family: inherit;
+    background: #c9a66b;
+    color: #2f1b0a;
+    border: 1px solid #5a3e2b;
+    border-radius: 5px;
+    padding: 5px 10px;
     cursor: pointer;
+}
+
+button:hover {
+    background: #d9b77c;
+}
+
+#loginForm, #addTodoSection, #loggedOutView, #loggedInView {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#addTodoSection input[type="text"] {
+    width: 70%;
+    margin-right: 10px;
+}
+
+#todoList {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+#todoList li {
+    margin-bottom: 10px;
+}
+
+.todo-checkbox {
+    vertical-align: middle;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.todo-checkbox + span {
+    vertical-align: middle;
+}
+
+#loginForm input[type="text"], #loginForm input[type="password"] {
+    width: 80%;
+    margin: 5px 0;
+}
+
+#loggedInView #welcomeMessage {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#hieroglyphs-container {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+@media (max-width: 600px) {
+    #user-section, #todo-section {
+        width: 95%;
+    }
+
+    #addTodoSection input[type="text"] {
+        width: 60%;
+    }
 }

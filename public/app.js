@@ -1,55 +1,88 @@
-const nameInput = document.getElementById('nameInput');
-const setNameBtn = document.getElementById('setNameBtn');
-const nameSection = document.getElementById('name-section');
-const todoSection = document.getElementById('todo-section');
-const todoHeader = document.getElementById('todoHeader');
+let isLoggedIn = false; // track login state
+
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
 const newTodoInput = document.getElementById('newTodoInput');
 const addTodoBtn = document.getElementById('addTodoBtn');
 const todoList = document.getElementById('todoList');
-const signOutBtn = document.getElementById('signOutBtn');
 
-async function checkName() {
+const loggedOutView = document.getElementById('loggedOutView');
+const loggedInView = document.getElementById('loggedInView');
+const welcomeMessage = document.getElementById('welcomeMessage');
+
+const showLoginFormBtn = document.getElementById('showLoginFormBtn');
+const loginForm = document.getElementById('loginForm');
+
+// Show/Hide login form
+showLoginFormBtn.addEventListener('click', () => {
+    loginForm.style.display = (loginForm.style.display === 'none') ? 'block' : 'none';
+});
+
+// Check if user is logged in
+async function checkAuth() {
   const res = await fetch('/whoami');
   const data = await res.json();
   if (data.username) {
-    showTodos(data.username);
+    showLoggedInView(data.username);
   } else {
-    showNameEntry();
+    showLoggedOutView();
   }
-}
-
-function showNameEntry() {
-  nameSection.style.display = 'block';
-  todoSection.style.display = 'none';
-}
-
-function showTodos(username) {
-  nameSection.style.display = 'none';
-  todoSection.style.display = 'block';
-  todoHeader.textContent = `Welcome, ${username}! Add a todo below.`;
   loadTodos();
 }
 
-setNameBtn.addEventListener('click', async () => {
-  const username = nameInput.value.trim();
-  if (!username) {
-    alert('Please enter a name.');
-    return;
-  }
+function showLoggedOutView() {
+  isLoggedIn = false;
+  loggedOutView.style.display = 'block';
+  loggedInView.style.display = 'none';
+  
+  newTodoInput.disabled = true;
+  addTodoBtn.disabled = true;
+  newTodoInput.placeholder = "Log in to add new todo";
+}
 
-  const res = await fetch('/setname', {
+function showLoggedInView(username) {
+  isLoggedIn = true;
+  loggedOutView.style.display = 'none';
+  loggedInView.style.display = 'block';
+  welcomeMessage.textContent = `Logged in as ${username}`;
+  
+  newTodoInput.disabled = false;
+  addTodoBtn.disabled = false;
+  newTodoInput.placeholder = "New Todo...";
+}
+
+// Login
+loginBtn.addEventListener('click', async () => {
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value;
+
+  const res = await fetch('/auth/login', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username})
+    body: JSON.stringify({username, password})
   });
   const data = await res.json();
   if (res.ok) {
-    showTodos(username);
+    usernameInput.value = '';
+    passwordInput.value = '';
+    loginForm.style.display = 'none';
+    checkAuth();
   } else {
     alert(data.error);
   }
 });
 
+// Logout
+logoutBtn.addEventListener('click', async () => {
+  const res = await fetch('/auth/logout', {method: 'POST'});
+  if (res.ok) {
+    checkAuth();
+  }
+});
+
+// Load Todos
 async function loadTodos() {
   const res = await fetch('/todos');
   const data = await res.json();
@@ -69,16 +102,8 @@ function renderTodos(todos) {
     checkbox.type = 'checkbox';
     checkbox.checked = todo.completed;
     checkbox.className = 'todo-checkbox';
-    checkbox.addEventListener('click', async () => {
-      const res = await fetch('/todos/toggle', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({id: todo.id})
-      });
-      if (res.ok) {
-        window.location.reload();
-      }
-    });
+    // Everyone can toggle
+    checkbox.addEventListener('click', () => toggleTodo(todo.id));
 
     const spanText = document.createElement('span');
     spanText.textContent = todo.text;
@@ -98,6 +123,22 @@ function renderTodos(todos) {
   });
 }
 
+async function toggleTodo(id) {
+  const res = await fetch('/todos/toggle', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id})
+  });
+  if (res.ok) {
+    window.location.reload();
+  } else {
+    const data = await res.json();
+    alert(data.error);
+    loadTodos();
+  }
+}
+
+// Add Todo
 addTodoBtn.addEventListener('click', async () => {
   const text = newTodoInput.value.trim();
   if (!text) return;
@@ -116,11 +157,31 @@ addTodoBtn.addEventListener('click', async () => {
   }
 });
 
-signOutBtn.addEventListener('click', async () => {
-  const res = await fetch('/signout', {method: 'POST'});
-  if (res.ok) {
-    window.location.reload();
-  }
-});
+// Hieroglyph generation for background
+function getRandomHieroglyph() {
+  // Egyptian Hieroglyphs range: U+13000–U+1342F
+  // We'll use a subset for reliability
+  const start = 0x13000;
+  const end = 0x130FF; 
+  const codePoint = start + Math.floor(Math.random() * (end - start));
+  return String.fromCodePoint(codePoint);
+}
 
-checkName();
+function generateHieroglyphsGrid(rows = 30, cols = 50) {
+  // Generate a large block of hieroglyphs (rows x cols)
+  let result = '';
+  for (let r = 0; r < rows; r++) {
+    let line = '';
+    for (let c = 0; c < cols; c++) {
+      line += getRandomHieroglyph();
+    }
+    result += line + '\n';
+  }
+  return result;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const background = document.getElementById('hieroglyphs-background');
+  background.textContent = generateHieroglyphsGrid();
+  checkAuth();
+});

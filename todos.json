@@ -1,52 +1,34 @@
 {
   "todos": [
     {
-      "id": "28b7a0c8-ec2f-4750-bb0c-5102ed59eea1",
-      "text": "todo",
+      "id": "a1371ea9-a4cb-472a-a467-e0728ca9c84a",
+      "text": "test",
+      "completed": false,
+      "user": "alice"
+    },
+    {
+      "id": "02ab0abb-f196-4e08-8b7b-fe7b0171b680",
+      "text": "test1",
+      "completed": false,
+      "user": "alice"
+    },
+    {
+      "id": "165335ca-d908-41f6-8027-e7a48824e8ad",
+      "text": "test3",
+      "completed": false,
+      "user": "bob"
+    },
+    {
+      "id": "54bea132-b581-4768-80c8-3197084bc86c",
+      "text": "test4",
+      "completed": false,
+      "user": "alice"
+    },
+    {
+      "id": "302d6981-61bf-4298-8159-83f91a9ee909",
+      "text": "roshan's todo",
       "completed": false,
       "user": "roshan"
-    },
-    {
-      "id": "b5d8139e-734c-42ff-82ac-ecedf25b50c2",
-      "text": "another todo",
-      "completed": false,
-      "user": "Mateo"
-    },
-    {
-      "id": "f1a8ad2d-77fd-4374-8d40-40cc09fbbe71",
-      "text": "improve app",
-      "completed": false,
-      "user": "Matt"
-    },
-    {
-      "id": "1d392822-4526-4a77-8575-94ad4a7aa3d4",
-      "text": "sleep",
-      "completed": true,
-      "user": "Matt"
-    },
-    {
-      "id": "ef638642-bfef-4d0e-9005-a7306a1a4870",
-      "text": "finish classes",
-      "completed": true,
-      "user": "Matt"
-    },
-    {
-      "id": "6049a7aa-1c3d-45f1-b0a5-6b0e9e512687",
-      "text": "be a goated ULA",
-      "completed": true,
-      "user": "Koray Akduman"
-    },
-    {
-      "id": "229d3bd9-3aa1-468a-8f56-0927f7a0306a",
-      "text": "phuijohklj';kn",
-      "completed": true,
-      "user": "dfxygjhkl;j'm, n;hb'o:Lmn"
-    },
-    {
-      "id": "5a42db0f-bf7b-49f1-97cb-1e14763c5b46",
-      "text": "jlh;klnj;k/mn'jkb",
-      "completed": true,
-      "user": "dfxygjhkl;j'm, n;hb'o:Lmn"
     }
   ]
 }

@@ -1,0 +1,7 @@
+{
+    "users": {
+      "roshan": {"password": "secret1"},
+      "mateo": {"password": "secret2"}
+    }
+  }
+  

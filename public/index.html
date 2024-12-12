@@ -3,23 +3,37 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Public Todo List</title>
+    <title>Public Todo List with Login</title>
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+    <!-- Hieroglyphs background container -->
+    <div id="hieroglyphs-background"></div>
+
     <h1>Public Todo List</h1>
 
-    <div id="name-section">
-        <h2>Enter Your Name</h2>
-        <input type="text" id="nameInput" placeholder="Your name...">
-        <button id="setNameBtn">Set Name</button>
+    <div id="user-section">
+        <div id="loggedOutView" style="display:none;">
+            <button id="showLoginFormBtn">Login</button>
+            <div id="loginForm" style="display:none; margin-top:10px;">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button id="loginBtn">Submit</button>
+            </div>
+        </div>
+
+        <div id="loggedInView" style="display:none;">
+            <span id="welcomeMessage"></span>
+            <button id="logoutBtn">Logout</button>
+        </div>
     </div>
 
-    <div id="todo-section" style="display:none;">
-        <h2 id="todoHeader"></h2>
-        <input type="text" id="newTodoInput" placeholder="New Todo...">
-        <button id="addTodoBtn">Add Todo</button>
-        <button id="signOutBtn">Sign Out</button>
+    <div id="todo-section">
+        <h2>All Todos</h2>
+        <div id="addTodoSection" style="margin:10px 0;">
+            <input type="text" id="newTodoInput" placeholder="Log in to add new todo" disabled>
+            <button id="addTodoBtn" disabled>Add Todo</button>
+        </div>
         <ul id="todoList"></ul>
     </div>
 
