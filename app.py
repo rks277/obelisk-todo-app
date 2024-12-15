@@ -2,12 +2,33 @@ from flask import Flask, request, session, jsonify, send_from_directory
 import os
 import json
 from uuid import uuid4
+import serial
 
 app = Flask(__name__, static_folder='public', static_url_path='/public')
 app.secret_key = 'a_very_secret_key_here'  # Replace with a secure key
 
 USERS_FILE = 'users.json'
 TODOS_FILE = 'todos.json'
+
+# Configure the serial connection
+SERIAL_PORT = "/dev/cu.usbserial-10"  # Replace with your ESP32 serial port
+BAUD_RATE = 115200
+
+def send_to_esp32_via_serial(data):
+    """Send data to ESP32 via the serial port and read its response."""
+    try:
+        with serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=2) as ser:
+            # Send the data
+            ser.write(f"{data}\n".encode())  # Send the data with a newline character
+            print(f"Sent to ESP32: {data}")
+
+            # Wait for the ESP32's response
+            response = ser.readline().decode().strip()  # Read a single line
+            print(f"Received from ESP32: {response}")
+            return response
+    except Exception as e:
+        print(f"Failed to communicate with ESP32 via serial: {e}")
+        return None
 
 def load_users():
     if not os.path.exists(USERS_FILE):
@@ -84,6 +105,27 @@ def add_todo():
 
     return jsonify({"message": "Todo added"}), 200
 
+import socket
+
+# ESP32 configuration
+ESP32_IP = "192.168.x.x"  # Replace with your ESP32's IP address
+ESP32_PORT = 80  # Replace with your ESP32's port
+
+def send_to_esp32(data):
+    """Send data to ESP32 via TCP."""
+    try:
+        # Create a socket and connect to ESP32
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((ESP32_IP, ESP32_PORT))
+
+        # Send the data as a string
+        client_socket.sendall(str(data).encode())
+        client_socket.close()
+        return True
+    except Exception as e:
+        print(f"Failed to send data to ESP32: {e}")
+        return False
+
 @app.route('/todos/toggle', methods=['POST'])
 def toggle_todo():
     data = request.json
@@ -95,9 +137,19 @@ def toggle_todo():
     todos_data = load_todos()
     for todo in todos_data['todos']:
         if todo['id'] == todo_id:
+            # Toggle the completion status
             todo['completed'] = not todo['completed']
             save_todos(todos_data)
-            return jsonify({"message": "Todo toggled"}), 200
+
+            # Send data to ESP32 and get the response
+            if todo['completed']:
+                response = send_to_esp32_via_serial(1)
+            else:
+                response = send_to_esp32_via_serial(0)
+            if response:
+                return jsonify({"message": f"Todo toggled. ESP32 count: {response}"}), 200
+            else:
+                return jsonify({"error": "Todo toggled but failed to communicate with ESP32"}), 500
 
     return jsonify({"error": "Todo not found"}), 404
 

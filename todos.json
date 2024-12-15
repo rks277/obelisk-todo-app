@@ -21,13 +21,13 @@
     {
       "id": "54bea132-b581-4768-80c8-3197084bc86c",
       "text": "test4",
-      "completed": true,
+      "completed": false,
       "user": "alice"
     },
     {
       "id": "302d6981-61bf-4298-8159-83f91a9ee909",
       "text": "roshan's todo",
-      "completed": true,
+      "completed": false,
       "user": "roshan"
     },
     {
