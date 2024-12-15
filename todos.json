@@ -7,38 +7,20 @@
       "user": "alice"
     },
     {
-      "id": "02ab0abb-f196-4e08-8b7b-fe7b0171b680",
-      "text": "test1",
-      "completed": true,
-      "user": "alice"
-    },
-    {
-      "id": "165335ca-d908-41f6-8027-e7a48824e8ad",
-      "text": "test3",
-      "completed": true,
-      "user": "bob"
-    },
-    {
-      "id": "54bea132-b581-4768-80c8-3197084bc86c",
-      "text": "test4",
-      "completed": false,
-      "user": "alice"
-    },
-    {
-      "id": "302d6981-61bf-4298-8159-83f91a9ee909",
-      "text": "roshan's todo",
-      "completed": false,
-      "user": "roshan"
-    },
-    {
-      "id": "b16874ac-2a14-4ca6-9d81-973bb6fb4a81",
-      "text": "This was added from my phone",
-      "completed": false,
-      "user": "roshan"
-    },
-    {
-      "id": "ff88879f-b718-44e9-aa06-68f4bbd8a3d7",
+      "id": "11c05d70-4c74-453d-a4ba-dce74175dfe1",
       "text": "another todo",
+      "completed": false,
+      "user": "roshan"
+    },
+    {
+      "id": "a6561584-134a-47bb-bd76-fa0a31675ed9",
+      "text": "Be evil",
+      "completed": true,
+      "user": "roshan"
+    },
+    {
+      "id": "5b9e5b39-f8ae-4d3a-8f32-92a27926439a",
+      "text": "Access Buwei's turret",
       "completed": false,
       "user": "roshan"
     }

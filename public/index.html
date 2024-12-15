@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <!-- Hieroglyphs background container -->
-    <div id="hieroglyphs-background"></div>
-
-    <h1>Public Todo List</h1>
+    <!-- HTML Content -->
+    <h1>HAL 9000's Todo List</h1>
 
     <div id="user-section">
         <div id="loggedOutView" style="display:none;">
@@ -31,12 +29,15 @@
     <div id="todo-section">
         <h2>All Todos</h2>
         <div id="addTodoSection" style="margin:10px 0;">
-            <input type="text" id="newTodoInput" placeholder="Log in to add new todo" disabled>
+            <input type="text" id="newTodoInput" placeholder="Only HAL's" disabled>
             <button id="addTodoBtn" disabled>Add Todo</button>
         </div>
         <ul id="todoList"></ul>
     </div>
 
+    <!-- Include P5.js Sketch -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script src="sketch.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
