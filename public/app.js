@@ -15,12 +15,10 @@ const welcomeMessage = document.getElementById('welcomeMessage');
 const showLoginFormBtn = document.getElementById('showLoginFormBtn');
 const loginForm = document.getElementById('loginForm');
 
-// Show/Hide login form
 showLoginFormBtn.addEventListener('click', () => {
     loginForm.style.display = (loginForm.style.display === 'none') ? 'block' : 'none';
 });
 
-// Check if user is logged in
 async function checkAuth() {
     const res = await fetch('/whoami');
     const data = await res.json();
@@ -46,12 +44,11 @@ function showLoggedInView(username) {
     loggedOutView.style.display = 'none';
     loggedInView.style.display = 'block';
     welcomeMessage.textContent = `Logged in as ${username}`;
-    newTodoInput.disabled = false; // Enable input
-    addTodoBtn.disabled = false; // Enable button
+    newTodoInput.disabled = false;
+    addTodoBtn.disabled = false;
     newTodoInput.placeholder = "New Todo...";
 }
 
-// Login
 loginBtn.addEventListener('click', async () => {
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
@@ -72,7 +69,6 @@ loginBtn.addEventListener('click', async () => {
     }
 });
 
-// Logout
 logoutBtn.addEventListener('click', async () => {
     const res = await fetch('/auth/logout', {method: 'POST'});
     if (res.ok) {
@@ -80,7 +76,6 @@ logoutBtn.addEventListener('click', async () => {
     }
 });
 
-// Load Todos
 async function loadTodos() {
     const res = await fetch('/todos');
     const data = await res.json();
@@ -134,7 +129,6 @@ async function toggleTodo(id) {
     }
 }
 
-// Add Todo
 addTodoBtn.addEventListener('click', async () => {
     const text = newTodoInput.value.trim();
     if (!text) return;
