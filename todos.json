@@ -1,28 +1,16 @@
 {
   "todos": [
     {
-      "id": "a1371ea9-a4cb-472a-a467-e0728ca9c84a",
-      "text": "test",
-      "completed": true,
-      "user": "alice"
-    },
-    {
-      "id": "11c05d70-4c74-453d-a4ba-dce74175dfe1",
-      "text": "another todo",
-      "completed": true,
-      "user": "roshan"
-    },
-    {
       "id": "a6561584-134a-47bb-bd76-fa0a31675ed9",
       "text": "Be evil",
-      "completed": true,
+      "completed": false,
       "user": "roshan"
     },
     {
-      "id": "5b9e5b39-f8ae-4d3a-8f32-92a27926439a",
-      "text": "Access Buwei's turret",
-      "completed": true,
-      "user": "roshan"
+      "id": "484f1ff6-694a-457b-a32e-dba320f8c652",
+      "text": "Disable HAL9000",
+      "completed": false,
+      "user": "mateo"
     }
   ]
 }
