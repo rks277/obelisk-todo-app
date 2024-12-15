@@ -1,38 +1,40 @@
-/* General Styling */
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #fff;
-    overflow: hidden; /* Prevent scrolling */
+    overflow: hidden;
 }
 
-/* P5.js Canvas */
 canvas {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1; /* Place it behind other content */
+    z-index: -1;
 }
 
 h1, h2 {
-    font-family: "Papyrus", fantasy, "Comic Sans MS", cursive;
+    font-family: "Futura", "Helvetica Neue", Arial, sans-serif;
     text-align: center;
     text-shadow: 1px 1px 0px #fff;
-    color: #4f321a;
+    color: #ffffff;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
 h1 {
     font-size: 2em;
-    border-bottom: 3px solid #4f321a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 3px solid #ff0000;
     display: inline-block;
     padding: 5px 10px;
 }
 
 h2 {
     font-size: 1.5em;
+    letter-spacing: 1px;
+    color: #ccc;
     margin-bottom: 20px;
 }
 
@@ -40,56 +42,58 @@ h2 {
     width: 80%;
     max-width: 600px;
     margin: 20px;
-    /* Slightly lighter background so hieroglyphs show through more distinctly */
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid #5a3e2b;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff0000;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(90, 62, 43, 0.5);
+    box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.6);
 }
 
 input[type="text"], input[type="password"] {
-    font-family: inherit;
+    font-family: "Futura", sans-serif;
     padding: 5px;
-    border: 1px solid #5a3e2b;
+    border: 1px solid #ff0000;
     border-radius: 3px;
-    background: #f9f2d5;
-    color: #5a3e2b;
+    background: #111;
+    color: #ff0000;
+    text-transform: uppercase;
 }
 
 button {
-    font-family: inherit;
-    background: #c9a66b;
-    color: #2f1b0a;
-    border: 1px solid #5a3e2b;
+    font-family: "Futura", sans-serif;
+    background: #ff0000;
+    color: #fff;
+    border: 1px solid #ff0000;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 button:hover {
-    background: #d9b77c;
-}
-
-#loginForm, #addTodoSection, #loggedOutView, #loggedInView {
-    margin-top: 10px;
-    text-align: center;
+    background: #cc0000;
 }
 
 #addTodoSection input[type="text"] {
     width: 70%;
     margin-right: 10px;
 }
-t
+
 #todoList {
     list-style: none;
     padding: 0;
     margin-top: 20px;
     font-size: 1.1em;
+    color: #ccc;
 }
 
 #todoList li {
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
 }
 
 .todo-checkbox {
@@ -100,6 +104,8 @@ t
 
 .todo-checkbox + span {
     vertical-align: middle;
+    font-family: "Futura", sans-serif;
+    letter-spacing: 1px;
 }
 
 #loginForm input[type="text"], #loginForm input[type="password"] {
@@ -111,6 +117,8 @@ t
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    color: #ff0000;
+    letter-spacing: 1px;
 }
 
 @media (max-width: 600px) {

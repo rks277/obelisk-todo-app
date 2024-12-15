@@ -9,7 +9,7 @@
     {
       "id": "11c05d70-4c74-453d-a4ba-dce74175dfe1",
       "text": "another todo",
-      "completed": false,
+      "completed": true,
       "user": "roshan"
     },
     {
@@ -21,7 +21,7 @@
     {
       "id": "5b9e5b39-f8ae-4d3a-8f32-92a27926439a",
       "text": "Access Buwei's turret",
-      "completed": false,
+      "completed": true,
       "user": "roshan"
     }
   ]
