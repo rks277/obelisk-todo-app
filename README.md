@@ -1,5 +1,5 @@
 # obelisk-todo-app
-# **Monolith Candy Dispenser**
+# **(AKA, the Monolith Candy Dispenser)**
 
 ## **Overview**
 
